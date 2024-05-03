@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAnimate", "BlazorAnimate.csproj", "{AFE11EE9-4346-4F16-A791-FCE8A857DB9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFE11EE9-4346-4F16-A791-FCE8A857DB9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE11EE9-4346-4F16-A791-FCE8A857DB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE11EE9-4346-4F16-A791-FCE8A857DB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE11EE9-4346-4F16-A791-FCE8A857DB9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A8D2A46-9E41-4FE1-9AEB-36B838AD15E0}
+	EndGlobalSection
+EndGlobal
