@@ -1,0 +1,170 @@
+﻿﻿@using Microsoft.Extensions.Logging;
+@inject ILogger<PageLoader> Logger;
+
+@code {
+
+    public Dictionary<string, string> PageStyles { get; set; } = new();
+    public Dictionary<string, AppPage> Pages { get; set; } = new();
+    public Dictionary<string, string> LoadWith { get; set; } = new();
+    private AppPage autoLoadPage;
+    private string? currentPage;
+    private string? previousPage;
+    private string? currentInnerPage;
+    private string? previousInnerPage;
+
+    public void Load(string identifier)
+    {
+        Load(identifier, false);
+    }
+
+    public void Load(string identifier, bool inner)
+    {
+        if(currentInnerPage != null && !inner)
+        {
+            PageStyles[currentInnerPage] = "";
+        }
+        string page = inner ? currentInnerPage : currentPage;
+        if(page != null)
+        {
+            if(Pages[identifier].PreviousAnimationOut != null)
+            {
+                if (!Pages[identifier].PreviousAnimationOut.Equals(AnimationType.NONE))
+                {
+                    PageStyles[page] = "display: block; animation-name: " + Pages[identifier].PreviousAnimationOut;
+                }
+            }
+            else if(Pages[page].AnimationOut != null)
+            {
+                PageStyles[page] = "display: block; animation-name: " + Pages[page].AnimationOut;
+            }
+            if(!inner)
+            {
+                previousPage = currentPage;
+            } else
+            {
+                previousInnerPage = currentInnerPage;
+            }
+        }
+        Logger.LogInformation("Loading page: " + identifier + (inner ? " (Inner page)" : ""));
+        PageStyles[identifier] = "display: block; animation-name: " + Pages[identifier].AnimationIn;
+        if(!inner)
+        {
+            if (currentInnerPage != null)
+            {
+                PageStyles[currentInnerPage] = "";
+            }
+            if (previousInnerPage != null)
+            {
+                PageStyles[previousInnerPage] = "";
+            }
+            currentInnerPage = null;
+            previousInnerPage = null;
+            currentPage = identifier;
+        } else
+        {
+            currentInnerPage = identifier;
+        }
+        StateHasChanged();
+    }
+
+    public void UnloadLatest()
+    {
+        if(currentPage == null)
+        {
+            return;
+        }
+        if(Pages[currentPage].AnimationOut != null)
+        {
+            PageStyles[currentPage] = "display: block; animation-name: " + Pages[currentPage].AnimationOut;
+        } else
+        {
+            PageStyles[currentPage] = "";
+        }
+        string temp = previousPage;
+        previousPage = currentPage;
+        currentPage = temp;
+        StateHasChanged();
+    }
+
+    public void ExitInner()
+    {
+        if (currentInnerPage == null)
+        {
+            return;
+        }
+        if (Pages[currentInnerPage].AnimationOut != null)
+        {
+            PageStyles[currentInnerPage] = "display: block; animation-name: " + Pages[currentInnerPage].AnimationOut;
+        }
+        currentInnerPage = null;
+        previousInnerPage = null;
+        StateHasChanged();
+    }
+
+    public void UnloadLatestInner()
+    {
+        if (currentInnerPage == null)
+        {
+            return;
+        }
+        if (Pages[currentInnerPage].AnimationOut != null)
+        {
+            PageStyles[currentInnerPage] = "display: block; animation-name: " + Pages[currentInnerPage].AnimationOut;
+        }
+        else
+        {
+            PageStyles[currentInnerPage] = "";
+        }
+        string temp = previousInnerPage;
+        previousInnerPage = currentInnerPage;
+        currentInnerPage = temp;
+        PageStyles[currentInnerPage] = "display: block;";
+        StateHasChanged();
+    }
+
+    public void UnloadAll()
+    {
+        foreach (string key in PageStyles.Keys)
+        {
+            PageStyles[key] = "";
+        }
+        currentInnerPage = null;
+        previousInnerPage = null;
+        if (autoLoadPage != null)
+        {
+            Load(autoLoadPage.GetType().Name);
+        } else
+        {
+            currentPage = null;
+            previousPage = null;
+        }
+    }
+
+    public void RegisterPage(AppPage page)
+    {
+        string identifier = page.GetType().Name;
+        Pages[identifier] = page;
+        PageStyles[identifier] = "";
+        if (page.AutoLoad)
+        {
+            Load(identifier);
+            autoLoadPage = page;
+        }
+    }
+
+    public enum AnimationType
+    {
+        SLIDE_TO_RIGHT,
+        SLIDE_FROM_RIGHT,
+        SLIDE_TO_LEFT,
+        SLIDE_FROM_LEFT,
+        SLIDE_TO_TOP,
+        SLIDE_FROM_TOP,
+        SLIDE_TO_BOTTOM,
+        SLIDE_FROM_BOTTOM,
+        FADE_IN,
+        FADE_OUT,
+        NONE,
+    }
+
+}

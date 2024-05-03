@@ -1,0 +1,34 @@
+﻿@using static BlazorAnimate.PageLoader
+
+@code {
+
+    [Parameter]
+    public AnimationType AnimationIn { get; set; }
+
+    [Parameter]
+    public AnimationType? AnimationOut { get; set; }
+
+    [Parameter]
+    public AnimationType? PreviousAnimationOut { get; set; }
+
+    [Parameter]
+    public PageLoader Loader { 
+        get { 
+            return _loader; 
+        } 
+        set {
+            if(this._loader != null)
+            {
+                return;
+            }
+            this._loader = value;
+            _loader.RegisterPage(this);
+        }
+    }
+
+    [Parameter]
+    public bool AutoLoad { get; set; }
+
+    private PageLoader _loader;
+
+}
