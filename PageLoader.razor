@@ -5,8 +5,7 @@
 
     public Dictionary<string, string> PageStyles { get; set; } = new();
     public Dictionary<string, AppPage> Pages { get; set; } = new();
-    public Dictionary<string, string> LoadWith { get; set; } = new();
-    private AppPage autoLoadPage;
+    private AppPage? autoLoadPage;
     private string? currentPage;
     private string? previousPage;
     private string? currentInnerPage;
@@ -19,14 +18,14 @@
 
     public void Load(string identifier, bool inner)
     {
-        if(currentInnerPage != null && !inner)
+        if (currentInnerPage != null && !inner)
         {
             PageStyles[currentInnerPage] = "";
         }
-        string page = inner ? currentInnerPage : currentPage;
-        if(page != null)
+        string? page = inner ? currentInnerPage : currentPage;
+        if (page != null)
         {
-            if(Pages[identifier].PreviousAnimationOut != null)
+            if (Pages[identifier].PreviousAnimationOut != null)
             {
                 if (!Pages[identifier].PreviousAnimationOut.Equals(AnimationType.NONE))
                 {
@@ -69,7 +68,7 @@
 
     public void UnloadLatest()
     {
-        if(currentPage == null)
+        if(currentPage == null || previousPage == null)
         {
             return;
         }
@@ -103,7 +102,7 @@
 
     public void UnloadLatestInner()
     {
-        if (currentInnerPage == null)
+        if (currentInnerPage == null || previousInnerPage == null)
         {
             return;
         }
