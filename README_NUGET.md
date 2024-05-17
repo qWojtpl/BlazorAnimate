@@ -1,0 +1,1 @@
+All documentation is provided on GitHub: https://github.com/qWojtpl/BlazorAnimate/

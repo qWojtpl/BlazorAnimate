@@ -4,6 +4,21 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>qWojtpl.BlazorAnimate</PackageId>
+    <Title>BlazorAnimate</Title>
+    <Version>1.0.1</Version>
+    <Authors>Wojciech Wróbel</Authors>
+    <Product>BlazorAnimate</Product>
+    <Description>Simple library to bring life to your MAUI Blazor project</Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageReadmeFile>README_NUGET.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/qWojtpl/BlazorAnimate</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>blazor;razor;maui;animations</PackageTags>
+    <PackageReleaseNotes>- Removed body overflow</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +32,21 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README_NUGET.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

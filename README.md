@@ -11,7 +11,7 @@
 2. Go to wwwroot/index.html and add this line to header:
 
 ```html
-<link rel="stylesheet" href="_content/BlazorAnimate/css/bundle.css" />
+<link rel="stylesheet" href="_content/qWojtpl.BlazorAnimate/css/bundle.css" />
 ```
 
 > This should be the first stylesheet you are loading in this document!
@@ -39,7 +39,7 @@
 
 ```cshtml
 @page "/"
-@inherits AppLoader
+@inherits PageLoader
 ```
 
 5. Prepare first page
@@ -53,7 +53,7 @@
 @page "/login"
 @inherits AppPage
 
-<div id="your-page-id" class="page" style="@PageLoader.PageStyles["Login"]">
+<div id="your-page-id" class="page" style="@Loader.PageStyles["Login"]">
     
     /* Page html */
 
@@ -63,7 +63,7 @@
 
 > You have to use class page - this is class from pages.css
 
-> You have to use style="@PageLoader.PageStyles["ComponentName"]"~
+> You have to use style="@Loader.PageStyles["ComponentName"]"~
 
 > Don't forget to set background color to your page using id!
 
@@ -71,10 +71,10 @@
 
 6. Add component to Main component
 
-- In your main component (which inherits from AppLoader) add reference to component
+- In your main component (which inherits from PageLoader) add reference to component
 
 ```cshtml
-<Login AnimationIn="AnimationType.FADE_IN" AutoLoad="true" Loader="this">
+<Login AnimationIn="AnimationType.FADE_IN" AutoLoad="true" Loader="this" />
 ```
 
 > Loader should be always at the end of component reference!
@@ -110,6 +110,9 @@ Loader.Load(<PageName>, true);
 
 <details><summary><h3 style="display:inline-block;">Unload page</h2></summary>
 
+- UnloadLatest doesn't load previous page, only unloads current page!
+- Previous page must stay in this same position, so second page should have PreviousAnimationOut as none or first page shouldn't have AnimationOut 
+
 ```cshtml
 <button @onclick="Loader.UnloadLatest">Close me!</button>
 ```
@@ -135,6 +138,9 @@ Loader.Load(<PageName>, true);
 </details>
 
 <details><summary><h3 style="display:inline-block;">Unload latest inner page</h2></summary>
+
+- UnloadLatestInner doesn't load previous inner page, only unloads current inner page!
+- Previous inner page must stay in this same position, so second page should have PreviousAnimationOut as none or first page shouldn't have AnimationOut 
 
 ```cshtml
 <button @onclick="Loader.UnloadLatestInner">Unload latest inner page</button>
