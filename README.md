@@ -8,7 +8,9 @@
 
 1. Download NuGet package:
 
-```Install-Package qWojtpl.BlazorAnimate```
+```
+Install-Package qWojtpl.BlazorAnimate
+```
 
 2. Go to wwwroot/index.html and add this line to header:
 
