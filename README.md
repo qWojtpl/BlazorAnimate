@@ -6,7 +6,9 @@
 
 # Getting started
 
-1. Download the whole project and mark it as dependency in your project
+1. Download NuGet package:
+
+```Install-Package qWojtpl.BlazorAnimate```
 
 2. Go to wwwroot/index.html and add this line to header:
 
